@@ -1,6 +1,7 @@
 import { Request, ResponseToolkit, ServerRoute } from '@hapi/hapi';
 import { registerSchema } from './validation';
 import * as Service from './service';
+import { any } from 'joi';
 
 export const authRoutes: ServerRoute[] = [
   {
@@ -48,7 +49,7 @@ export const authRoutes: ServerRoute[] = [
     path: '/sub-admin/{id}',
     handler: async (req, h) => {
       const updated = await Service.updateSubAdmin(req.params.id, req.payload);
-      return h.response(updated);
+      return h.response(updated as any);
     },
   },
   {
