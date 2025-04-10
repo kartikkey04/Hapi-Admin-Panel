@@ -1,7 +1,9 @@
 import { User } from './model';
 import { hashPassword } from '../../utils/hash';
-import dotenv from 'dotenv';
-dotenv.config();
+import { env } from 'node:process';
+// import dotenv from 'dotenv';
+// dotenv.config();
+
 export const createDefaultSuperAdmin = async () => {
     const existing = await User.findOne({ role: 'super-admin' });
     if (existing) {
@@ -12,7 +14,7 @@ export const createDefaultSuperAdmin = async () => {
     const user = new User({
       name: 'Super Admin',
       email: process.env.SUPER_ADMIN_EMAIL,
-      password: await hashPassword(process.env.SUPER_ADMIN_PASSWORD),
+      password: await hashPassword(process.env.SUPER_ADMIN_PASSWORD as string),
       role: 'super-admin'
     });
   
